@@ -1,0 +1,36 @@
+<% form_for @vehicle, vehicle_path(), :method => "put" do |f| %>
+<table>
+  <tr>
+    <td>
+      <label>Vehicle Name</label>
+    </td>
+    <td>
+      <%= f.text_field "name" %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label>Vehicle Description</label>
+    </td>
+    <td>
+      <%= f.text_area "description", :rows => "5", :size => "30" %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label>Vehicle Status</label>
+    </td>
+    <td>
+      <%= f.check_box "status" %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= image_submit_tag ("save.png", :border => 0) %>
+    </td>
+    <td>
+      <%= link_to image_tag('Cancel.png', :border => 0), vehicles_path %>
+    </td>
+  </tr>
+</table>
+<% end %>

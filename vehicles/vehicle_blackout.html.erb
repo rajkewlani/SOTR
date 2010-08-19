@@ -1,0 +1,52 @@
+<div style="float:right;padding-bottom:10px;padding-right:20px;">
+    <%= link_to 'Add New Vehicle Blackout', new_vehicle_blackout_path , {:class=>'selectedlink'}%>
+</div>
+<tr>
+	<td width="100%" style="border:1px solid #D2D2D2;">
+		<table width="100%">
+			<tr class="td-light">
+			  <th class="th_header" width="20%">
+			    <div style="padding-left: 15px;"><label><b>Vehicle Name</b></label></div>
+			  </th>
+			  <th class="th_header" width="35%">
+			    <div style="padding-left: 15px;"><label><b>Blackout Description</b></label></div>
+			  </th>
+        <th class="th_header" width="20%"><div style="padding-left: 15px;"><b>Blackout Start</b></div></th>
+			  <th class="th_header" width="20%"><div style="padding-left: 15px;"><b>Blackout End</b></div></th>
+        <th class="th_header" width="20%"><div align="center"><b>Edit</b></div></th>
+        <th class="th_header" width="20%"><div align="center"><b>Delete</b></div></th>
+        
+			</tr>
+			<% @vehicle_blackout.each do |vehicle| %>
+			  <tr class="<%= cycle('td-light','td-dark') %>">
+			    <td style="padding-left: 15px;" class="td-listing">
+			      <%= vehicle.vehicle.name %>
+			    </td>
+			    <td style="padding-left: 15px;" class="td-listing">
+			      <%= vehicle.description %>
+			    </td>
+          <td style="padding-left: 15px;" class="td-listing">
+            <%= vehicle.start_date %>
+          </td>
+          <td style="padding-left: 15px;" class="td-listing">
+            <%= vehicle.end_date %>
+          </td>
+          <td style="padding-left: 15px;text-align:center" class="td-listing" >
+			      <%= link_to image_tag("app-edit-icon.png", :border => 0 , :size => "20x20"), edit_vehicle_blackout_path(vehicle.vehicle_blackout_id) %>
+			    </td>
+          <td style="padding-left: 15px;text-align:center" class="td-listing">
+			      <%= link_to image_tag("app-delete-icon.png", :border => 0 , :size => "20x20"), delete_vehicle_blackout_path(vehicle.vehicle_blackout_id), :method => "delete", :confirm => "Are you sure you want to delete this item?" %>
+			    </td>
+			  </tr>
+			<% end %>
+			<tr class="td-light">
+			  <td colspan="5" class="td-listing">
+			    <div class='digg_pagination'>
+			      <%= will_paginate @vehicle_blackout %>
+			    </div>
+			  </td>
+			</tr>
+
+		</table>
+	</td>
+</tr>

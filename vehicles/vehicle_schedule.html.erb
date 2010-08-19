@@ -1,0 +1,52 @@
+<div style="float:left;padding-bottom:10px;padding-right:10px;">
+  Go to Date : <%= text_field_tag 'datepicker_admin', session[:selectedDate].strftime('%m/%d/%Y') ,:onchange => remote_function(:url => {:controller => "vehicles", :action => "schedule_date"}, :with => "'date='+this.value")%>
+</div>
+<tr>
+	<td width="100%" style="border:1px solid #D2D2D2;">
+		<table width="100%">
+			<tr class="td-light">
+			  <th class="th_header" width="35%">
+			    <div style="padding-left: 15px;"><label><b>Name</b></label></div>
+			  </th>
+			  <th class="th_header" width="50%">
+			    <div style="padding-left: 15px;"><label><b>Description</b></label></div>
+			  </th>
+			  <th class="th_header" width="15%"><div align="center"><b>Action</b></div></th>
+			</tr>
+			<% @vehicles.each do |vehicle| %>
+			  <tr class="<%= cycle('td-light','td-dark') %>">
+			    <td style="padding-left: 15px;" class="td-listing">
+			      <%= vehicle.name %>
+			    </td>
+			    <td style="padding-left: 15px;" class="td-listing">
+			      <%= vehicle.description %>
+			    </td>
+			    <% if @vehicle_usage.count > 0 %>
+			      <% if @vehicle_id.include? vehicle.id %>
+			        <td style="padding-left: 15px;text-align:center" class="td-listing selectedlink">
+			          <%= link_to "Remove", vehicle_schedule_remove_path(vehicle.id), :confirm => "Are you sure you want to remove this scheduling?"  %>
+			        </td>
+			      <% else %>
+			        <td style="padding-left: 15px;;text-align:center" class="td-listing selectedlink">
+			          <%= link_to "Add", vehicle_schedule_add_path(vehicle.id), :confirm => "Are you sure you want to add this scheduling?"  %>
+			        </td>
+			      <% end %>
+			    <% else %>
+			      <td style="padding-left: 15px;text-align:center" class="td-listing selectedlink">
+			        <%= link_to "Add", vehicle_schedule_add_path(vehicle.id), :confirm => "Are you sure you want to add this scheduling?"  %>
+			      </td>
+			    <% end %>
+			  </tr>
+			<% end %>
+			
+			<tr class="td-light">
+			  <td colspan="5" class="td-listing">
+			    <div class='digg_pagination'>
+			      <%= will_paginate @vehicles %>
+			    </div>
+			  </td>
+			</tr>
+			
+		</table>
+	</td>
+</tr>

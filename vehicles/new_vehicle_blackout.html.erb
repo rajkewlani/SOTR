@@ -1,0 +1,49 @@
+<% form_for @vehicle, :url => create_vehicle_blackout_path() do |f| %>
+<table cellspacing="10">
+  <tr>
+    <td>
+      <label>Vehicle Name</label>
+    </td>
+    <td>
+      <%= select(:vehicle_blackout, :vehicle_id, @vehicle.map{|p|[p.name, p.id]}) %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label>Blockout Description</label>
+    </td>
+    <td>
+      <%= text_area(:vehicle_blackout, :description, :rows => 2, :cols => 18)%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label>Start Vehicle Blackout</label>
+    </td>
+    <td>
+      <%= text_field_tag 'datepicker_start_date', session[:selectedDate].strftime('%m/%d/%Y') %>
+    </td>
+    <td>
+      <%= time_select "from","time", {:default => Time.now.change(:hour => 9), :simple_time_select => true, :minute_interval => 15, :time_separator => "", :start_hour => 6, :end_hour => 23 } %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label>End Vehicle Blackout</label>
+    </td>
+    <td>
+      <%= text_field_tag 'datepicker_end_date', session[:selectedDate].strftime('%m/%d/%Y') %>
+    </td>
+    <td>
+      <%= time_select "to1","time", {:default => Time.now.change(:hour => 16), :simple_time_select => true, :minute_interval => 15, :time_separator => "", :start_hour => 6, :end_hour => 23 } %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= image_submit_tag ("save.png", :border => 0,:style =>'border:none') %>
+
+      <%= link_to image_tag('Cancel.png', :border => 0), vehicle_blackout_path %>
+    </td>
+  </tr>
+</table>
+<% end %>
